@@ -80,6 +80,23 @@ sections:
               </RunConfiguration>
           </RunSettings>
           ```
+      
+      - question: |
+          Does Live Unit Testing support source generator projects?
+        answer: |
+          Live Unit Testing cannot build the source generator projects with instrumentation.
+          Due to how the csharp compiler sets up assembly loading for source generators, this will fail to load Live Unit Testing assemblies.
+          
+          You can set `<ExcludeFromCodeCoverage>true</ExcludeFromCodeCoverage>` property in the source generator
+          csproj files, to make these projects build in Live Unit Testing.
+
+      - question: |
+          How to resolve error "Could not load file or assembly 'Microsoft.Bcl.AsyncInterfaces'"?
+
+        answer: |
+          Live Unit Testing runs the build inside of its own process for performance reasons.
+          In case this is causing build issues you can set `<UseInProcMSBuildNode>false</UseInProcMSBuildNode>` to the .lutconfig file, to ensure
+          that all of the build happens in the MSBuild process.
 
       - question: |
           Why are my tests failing to run? 
